@@ -68,26 +68,38 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
-        // var fs = require('fs');
-
-            $('button').click(function () {
-                $.post({
-                    url: 'http://127.0.0.1:1224',
-                    data: JSON.stringify({
-                        name: $("#name").val(),
-                        subject: $("#subject").val()
-                    }),
-                    type: 'POST',
-                    success:function(e){
-                        console.log(e.body)
+        $('button').click(function () {
+            $.post({
+                url: 'http://127.0.0.1:1224',
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    subject: $("#subject").val()
+                }),
+                type: 'POST',
+                success: function (response) {
+                    if (response == "1") {
+                        Swal.fire({ 
+                            type: 'success',
+                            title: 'Add Success!',
+                            showConfirmButton: false,
+                            timer: 800
+                        })
+                    } else {
+                        Swal.fire({ 
+                            type: 'error',
+                            title: 'Add Failed!',
+                            showConfirmButton: false,
+                            timer: 800
+                        })
                     }
-                })
-
+                }
             })
- 
+
+        })
+
     </script>
-    <!-- <script src="enroll.js"></script> -->
 </body>
 
 </html>

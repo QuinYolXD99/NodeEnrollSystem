@@ -7,7 +7,8 @@ http.createServer(function (req, res) {
   var filename = '';
 
   res.writeHead(200, {
-    'Context-Type': 'text/plain'
+    'Context-Type': 'text/plain',
+    'Access-Control-Allow-Origin': '*'
   });
 // whenever the server receives data from request // it reads the data  JSON.parse convert the string data to JSON or object
   req.on('data', function (data) {
@@ -18,6 +19,7 @@ http.createServer(function (req, res) {
 // When the data is read the server create a file using the fs module
   req.on('end', function () {
     fs.appendFile("subjects/"+filename, body+"\n");
+    res.end("1");
   })
 
 }).listen(1224);
