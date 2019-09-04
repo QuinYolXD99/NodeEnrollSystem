@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        .label{
-            float: left;
+        .label {
+            float: left !important;
         }
     </style>
 </head>
@@ -31,31 +32,35 @@
                             <div class="description">
                                 <!-- enroller card -->
                                 <br>
-                                <form action="">
-                                    <div class="ui fluid form">
-                                        <div class="field" placeholder="Name">
-                                            <div class="ui pointing below label">
-                                                Student's name
-                                            </div>
-                                            <input type="text" id="name">
+                                <!-- <form action="" method="POST"> -->
+                                <div class="ui fluid form">
+                                    <div class="field" placeholder="Name">
+                                        <div class="ui pointing below label">
+                                            Student's name
                                         </div>
-                                        <br>
-                                        <div class="field" placeholder="Subject">
-                                            <div class="ui pointing below label">
-                                                Subject
-                                            </div>
-                                            <input type="text" id="subject">
+                                        <div class="ui left icon input">
+                                            <input type="text" id="name">
+                                            <i class="user icon"></i>
                                         </div>
                                     </div>
                                     <br>
-                                    <center>
-                                        <button type="submit" class="ui right wifi icon positive button button btn-enroll">
-                                            <i class="id badge icon"></i>
-                                            Enroll Student
-                                        </button>
-                                    </center>
-                                </form>
-
+                                    <div class="field" placeholder="Subject">
+                                        <div class="ui pointing below label">
+                                            Subject
+                                        </div>
+                                        <div class="ui left icon input">
+                                            <input type="text" id="subject">
+                                            <i class="book icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <center>
+                                    <button type="button" class="ui right wifi icon positive button button btn-enroll">
+                                        <i class="id badge icon"></i>
+                                        Enroll Student
+                                    </button>
+                                </center>
                             </div>
                         </div>
                     </div>
@@ -63,6 +68,26 @@
             </div>
         </div>
     </div>
+    <script>
+        // var fs = require('fs');
+
+            $('button').click(function () {
+                $.post({
+                    url: 'http://127.0.0.1:1224',
+                    data: JSON.stringify({
+                        name: $("#name").val(),
+                        subject: $("#subject").val()
+                    }),
+                    type: 'POST',
+                    success:function(e){
+                        console.log(e.body)
+                    }
+                })
+
+            })
+ 
+    </script>
+    <!-- <script src="enroll.js"></script> -->
 </body>
 
 </html>
