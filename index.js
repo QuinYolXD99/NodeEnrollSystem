@@ -1,26 +1,43 @@
+var http = require('http');
+var api = require("./enroll")
+var url = require('url');
 var fs = require('fs');
-var http = require('http')
+var viewClass = require('./viewClass')
 
 
 http.createServer(function (req, res) {
-  var body = '';
-  var filename = '';
-
+  var response = "0";
+  var dir = url.parse(req.url, true);
+  var path = dir.pathname;
   res.writeHead(200, {
-    'Context-Type': 'text/plain',
+    'Context-Type': 'text/html',
     'Access-Control-Allow-Origin': '*'
   });
-// whenever the server receives data from request // it reads the data  JSON.parse convert the string data to JSON or object
-  req.on('data', function (data) {
-    data = JSON.parse(data);
-    body = data.name;
-    filename = data.subject+'.txt';
-  });
-// When the data is read the server create a file using the fs module
-  req.on('end', function () {
-    fs.appendFile("subjects/"+filename, body+"\n");
-    res.end("1");
-  })
+
+  if (path == "/" || path == "index.html") {
+    fs.readFile('index.html', function (err, data) {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
+    });
+
+  } else if (path.split("/")[1] == "enroll") {
+
+    if (api.enroll(req) == true) {
+      res.end("1");
+    }
+
+  } else if (path.split("/")[1] == "class") {
+    var string = path.split("/")[2] + ".csv";
+    fs.readFile(string, function (err, data) {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      if (data == undefined) {
+        res.write("Not Found!");
+        res.end()
+      } else {
+        viewClass.viewClassList(res,string)
+      }
+    });
+  }
 
 }).listen(1224);
 console.log('Server running');
