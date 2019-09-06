@@ -4,7 +4,6 @@ var url = require('url');
 var fs = require('fs');
 var viewClass = require('./viewClass')
 
-
 http.createServer(function (req, res) {
   var response = "0";
   var dir = url.parse(req.url, true);
@@ -18,6 +17,15 @@ http.createServer(function (req, res) {
     fs.readFile('index.html', function (err, data) {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(data);
+    });
+
+  } else if (path.split("/")[1] == "classList.csv") {
+    fs.readFile("classList.csv", function (err, data) {
+      res.writeHead(200, { 'Content-Type': 'text/plain',
+      'Access-Control-Allow-Origin': '*' });
+      data = ""+data
+      res.end("" + data.trimRight());
+
     });
 
   } else if (path.split("/")[1] == "enroll") {
@@ -34,7 +42,7 @@ http.createServer(function (req, res) {
         res.write("Not Found!");
         res.end()
       } else {
-        viewClass.viewClassList(res,string)
+        viewClass.viewClassList(res, string)
       }
     });
   }
