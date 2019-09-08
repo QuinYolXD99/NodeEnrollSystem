@@ -8,8 +8,14 @@ exports.viewClassList = function (res, string) {
         });
 
     });
+<<<<<<< HEAD:myModules/viewClass.js
     fs.readFile('./classList.html', function (err, data1) {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(data1);
+=======
+    fs.readFile('classList.html', function (err, htmlData) {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(htmlData);
+>>>>>>> origin:viewClass.js
     });
 }
