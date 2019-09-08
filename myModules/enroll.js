@@ -10,7 +10,7 @@ exports.enroll = function(req) {
     });
     // When the data is read the server create a file using the fs module
     req.on('end', function () {
-        fs.appendFile(filename, body+"\n", function (err) {
+        fs.appendFile("./Class/"+filename, body+"\n", function (err) {
             if (err) {
                 return false;
             }

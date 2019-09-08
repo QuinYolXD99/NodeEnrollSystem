@@ -1,8 +1,9 @@
 var http = require('http');
-var api = require("./enroll")
+var api = require("./myModules/enroll")
 var url = require('url');
 var fs = require('fs');
-var viewClass = require('./viewClass')
+var ajaxResponse = require("./myModules/ajaxResponse")
+var returnClass = require("./myModules/returnClass")
 
 http.createServer(function (req, res) {
   var response = "0";
@@ -20,13 +21,7 @@ http.createServer(function (req, res) {
     });
 
   } else if (path.split("/")[1] == "classList.csv") {
-    fs.readFile("classList.csv", function (err, data) {
-      res.writeHead(200, { 'Content-Type': 'text/plain',
-      'Access-Control-Allow-Origin': '*' });
-      data = ""+data
-      res.end("" + data.trimRight());
-
-    });
+      ajaxResponse.ajaxResponse(res)
 
   } else if (path.split("/")[1] == "enroll") {
 
@@ -35,16 +30,8 @@ http.createServer(function (req, res) {
     }
 
   } else if (path.split("/")[1] == "class") {
-    var string = path.split("/")[2] + ".csv";
-    fs.readFile(string, function (err, data) {
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      if (data == undefined) {
-        res.write("Not Found!");
-        res.end()
-      } else {
-        viewClass.viewClassList(res, string)
-      }
-    });
+    var string = "Class/" + path.split("/")[2] + ".csv";
+    returnClass.returnClass(res,string)
   }
 
 }).listen(1224);

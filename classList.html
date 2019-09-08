@@ -19,7 +19,7 @@
         </div>
         <div class="eight wide column">
             <div class="ui segment">
-                <table class="ui celled table">
+                <table class="ui selectable  celled table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -40,31 +40,26 @@
 
     <script>
         $(document).ready(function () {
-            // $("button").click(function () {
-                console.log("test")
-               console.log( $.ajax({
-                    url: "http://127.0.0.1:1224/classList.csv",
-                    dataType: "text",
-                    method:"get",
-                    error: function (e) {
-                        console.log(e)
-                    },
-                    success: function (data) {
-                        console.log(data)
-                        var employee_data = data.split(/\r?\n|\r/);
-                        for (var count = 0; count < employee_data.length; count++) {
-                            var cell_data = employee_data[count].split(",");
-                            var th = $("<tr>");
-                            for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
-                                $(th).append($("<td>").text(cell_data[cell_count]))
-                            }
-                            $("tbody").append($(th))
+            $.ajax({
+                url: "http://127.0.0.1:1224/classList.csv",
+                dataType: "text",
+                method: "get",
+                error: function (e) {
+                    console.log(e)
+                },
+                success: function (data) {
+                    var employee_data = data.split(/\r?\n|\r/);
+                    for (var count = 0; count < employee_data.length; count++) {
+                        var cell_data = employee_data[count].split(",");
+                        var th = $("<tr>");
+                        for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
+                            $(th).append($("<td>").text(cell_data[cell_count]))
                         }
+                        $("tbody").append($(th))
                     }
-
-                }))
+                }
             })
-        // })
+        })
     </script>
 </body>
 
