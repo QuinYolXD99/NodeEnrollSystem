@@ -1,4 +1,5 @@
-const fs = require('fs');
+// this module is to check if the url subject is on the sever or not ; ex localhost/class/subject
+var fs = require('fs');
 var viewClass = require('./viewClass');
 
 exports.returnClass = function (res,string) {
@@ -8,6 +9,7 @@ exports.returnClass = function (res,string) {
           res.write("Not Found!");
           res.end()
         } else {
+          // it will call the view class funtion from viewClass module
           viewClass.viewClassList(res, string)
         }
       });
