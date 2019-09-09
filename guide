@@ -1,3 +1,41 @@
-Guide Concepts
-    $("input").val()
-    regex /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+Gorm Guides
+
+
+
+[1] How to check if all inputs are  filled?
+
+  //  for example by clicking the submit button
+    $('element').event(function(){
+        temporary booleanVariable = true;
+
+    //this syntax is looping all the input fields
+        $('input').each(function(){
+            //check if the current input field is empty
+            if($(this).val() == ""){
+                //change the value of the temporary variable to false;
+                booleanVariable = false
+            }
+        })
+        //after checking all the input fields
+            if(booleanVariable == true){
+                //do something if all fields are filled
+            }else{
+                //do something else
+            }
+        
+    })
+
+[2] How to check if input email follow the standard format
+
+   // ex: emailName@provider.domain
+
+   using regular expression or regex - this will be used to check if the string follow the certain pattern provided
+
+    regex = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+
+    //this regex pattern means that it can contain uppercase or lower case and number and symbols in the emailName part in the example then it will follow '@' sign after it need a alphanumeric and symbols again the provider part and followed by a '.' then after the periiod should be 2-4 charactes only at the domain part
+
+    then we have the  "regex.test(string)" method to check the string if it follows the regex pattern provided
+    it will just return true or false that will be used in your conditions
+
+    for more information just search more about regex or regular expression

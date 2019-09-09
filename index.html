@@ -104,6 +104,12 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
+        $(document).keypress(function (event) {
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if (keycode == '13') {
+                    $("button").click();
+                }
+            });
         $('button').click(function () {
             $.ajax({
                 url: 'http://127.0.0.1:1224/enroll',
