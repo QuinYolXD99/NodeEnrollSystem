@@ -39,3 +39,21 @@ Form Guides
     it will just return true or false that will be used in your conditions
 
     for more information just search more about regex or regular expression
+
+[3] how to make ajax request
+
+    $.ajax({
+        url: "url",
+        type: "get/post/request",
+        data: JSON.stringify({
+            data1: value1,
+            data2: value2
+            // ...
+        }),
+        error: function (error) {
+            // catch error here
+        },
+        success : function(response_data){
+            // to do with the response data here
+        }
+    })
