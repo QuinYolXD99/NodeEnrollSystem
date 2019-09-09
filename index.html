@@ -18,12 +18,20 @@
         .card {
             width: 100% !important;
         }
+        .error {
+            color: red;
+            margin-left: 2px;
+        }
+
+        label.error {
+            display: inline;
+        }
     </style>
 </head>
 
 <body>
     <br>
-    <div class="ui divided centered grid container">
+    <div class="ui divided centered grid container" id="form">
         <div class=" stackable three column row">
             <div class="column">
                 <center>
@@ -46,6 +54,7 @@
                                             <input type="text" id="name">
                                             <i class="user icon"></i>
                                         </div>
+                                        <p class="error"></p>
                                     </div>
                                     <br>
                                     <div class="field" placeholder="Subject">
@@ -56,6 +65,7 @@
                                             <input type="text" id="subject">
                                             <i class="book icon"></i>
                                         </div>
+                                        <p class="error"></p>
                                     </div>
                                     <br>
                                     <div class="field" placeholder="Email">
@@ -66,6 +76,7 @@
                                             <input type="text" id="email">
                                             <i class="mail icon"></i>
                                         </div>
+                                        <p class="error"></p>
                                     </div>
                                     <br>
                                     <div class="field" placeholder="Course">
@@ -76,6 +87,7 @@
                                             <input type="text" id="course">
                                             <i class="pencil icon"></i>
                                         </div>
+                                        <p class="error"></p>
                                     </div>
                                     <br>
                                     <div class="field" placeholder="Year">
@@ -86,6 +98,7 @@
                                             <input type="text" id="year">
                                             <i class="graduation cap icon"></i>
                                         </div>
+                                        <p class="error"></p>
                                     </div>
                                 </div>
                                 <br>
@@ -104,42 +117,75 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
+<<<<<<< HEAD
+        function checkEmail(email) {
+            var regex = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+            return regex.test(email)
+        }
+=======
         $(document).keypress(function (event) {
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if (keycode == '13') {
                     $("button").click();
                 }
             });
+>>>>>>> 2f0e9dc3cd4b25ceed39b5984482d2a9895bfcdc
         $('button').click(function () {
-            $.ajax({
-                url: 'http://127.0.0.1:1224/enroll',
-                data: JSON.stringify({
-                    name: $("#name").val(),
-                    subject: $("#subject").val(),
-                    email: $("#email").val(),
-                    course: $("#course").val(),
-                    year: $("#year").val()
-                }),
-                type: 'POST',
-                error: function (err) {
-                    console.log(err)
-                },
-                success: function (response) {
-                    if (response == "1") {
-                        Swal.fire({
-                            type: 'success',
-                            title: 'Add Success!',
-                            text: 'Student has been enrolled!!!',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                    }
-                    $("input").val("");
+            var valid = true;
+            $('input').each(function () {
+                if ($(this).val() == "") {
+                    valid = false;
                 }
             })
+            if (valid) {
+                if (checkEmail($('#email').val())) {
+                    $.ajax({
+                        url: 'http://127.0.0.1:1224/enroll',
+                        data: JSON.stringify({
+                            name: $("#name").val(),
+                            subject: $("#subject").val(),
+                            email: $("#email").val(),
+                            course: $("#course").val(),
+                            year: $("#year").val()
+                        }),
+                        type: 'POST',
+                        error: function (err) {
+                            console.log(err)
+                        },
+                        success: function (response) {
+                            if (response == "1") {
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Add Success!',
+                                    text: 'Student has been enrolled!!!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            } else {
+
+                            }
+                            $("input").val("");
+                        }
+                    })
+                }else{
+                    Swal.fire({
+                    type: 'error',
+                    title: 'Input valid email!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                }
+
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Input fields must be filled',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
 
         })
-
     </script>
 </body>
 
