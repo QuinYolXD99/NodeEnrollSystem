@@ -5,7 +5,7 @@ exports.viewClassList = function (res, string) {
     fs.readFile(string, function (err, data) {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         // next it will duplicate the data from the subject url csv and  make a file classList.csv and paste the content inside 
-        fs.writeFile('./Class/classList.csv', data, function (err) {
+        fs.writeFile('./Class/classList.csv',string.split('/')[1].split(".")[0]+"\n"+ data, function (err) {
             if (err) throw err;
         });
     });

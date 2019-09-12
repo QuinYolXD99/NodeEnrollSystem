@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-
+    <style>
+        #classList {
+            margin-left: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,6 +23,12 @@
         </div>
         <div class="eight wide column">
             <div class="ui segment">
+                <center>
+                    <h1 id="classname">
+                        <span id="subject"></span>
+                        <span id="classList"> CLASS LIST</span>
+                    </h1>
+                </center>
                 <table class="ui selectable  celled table">
                     <thead>
                         <tr>
@@ -48,9 +58,12 @@
                     console.log(e)
                 },
                 success: function (data) {
-                    var employee_data = data.split(/\r?\n|\r/);
-                    for (var count = 0; count < employee_data.length; count++) {
-                        var cell_data = employee_data[count].split(",");
+                    var students_data = data.split("\n");
+                    $('#subject').text((students_data[0]).toUpperCase())
+                    var classname = data.classname;
+                    for (var count = 1; count < students_data.length; count++) {
+                        var cell_data = students_data[count].split(",");
+                        console.log(students_data[count].split(","))
                         var th = $("<tr>");
                         for (var cell_count = 0; cell_count < cell_data.length; cell_count++) {
                             $(th).append($("<td>").text(cell_data[cell_count]))

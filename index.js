@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
     });
 
   } else if (path.split("/")[1] == "classList.csv") {
-      ajaxResponse.ajaxResponse(res)
+    ajaxResponse.ajaxResponse(res)
 
   } else if (path.split("/")[1] == "enroll") {
 
@@ -31,7 +31,7 @@ http.createServer(function (req, res) {
 
   } else if (path.split("/")[1] == "class") {
     var string = "Class/" + path.split("/")[2] + ".csv";
-    returnClass.returnClass(res,string)
+    returnClass.returnClass(res, string)
   }
 
 }).listen(1224);
